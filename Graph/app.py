@@ -2,7 +2,6 @@
 from . import classes
 from . import drawgraph
 
-
 class Graph():
     def __init__(self):
         self.nodedict = {}
@@ -19,8 +18,8 @@ class Graph():
         self.nodedict[node1_id].connections.append(connection)
         self.nodedict[node2_id].connections.append(connection)
 
-    def draw(self, screen):
-        drawgraph.drawgraph(screen, self.nodedict, self.connections)
+    def draw(self, screen, font):
+        drawgraph.drawgraph(screen, self.nodedict, self.connections, font)
 
     
     
