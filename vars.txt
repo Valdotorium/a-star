@@ -1,0 +1,24 @@
+
+
+new node needs:
+position (px)
+connections (indexes in connections[])
+gCost (cost from start to this node) (will be defined later)
+hCost (cost from this node to end) (will be defined later)
+fCost (gCost + hCost)
+isExplored (boolean)
+
+connection
+partnerA (index in nodes[])
+partnerB (index in nodes[])
+cost (cost of moving from partnerA to partnerB)
+
+more vars:
+nodes[]
+openNodes[] (nodes that have been calculated but not accessed, for deciding where to go next, indexes in nodes[])
+connections[]
+path[] (sq of all visited nodes)
+startNode
+endNode
+currentNode
+
