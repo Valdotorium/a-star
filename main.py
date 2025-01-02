@@ -22,8 +22,8 @@ async def main():
     pg.display.set_caption("Pathfinding Visualization")
 
     # generating a random graph
-    node_count = 15
-    connections_multiplier = 1.25
+    node_count = 9
+    connections_multiplier = 1.45
     N = 3
     for i in range(node_count):
         #TODO: make sure nodes are spaced 
