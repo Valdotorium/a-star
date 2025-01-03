@@ -7,7 +7,7 @@ class Node:
 
         #need to be defined later
         self.costFromStart = None
-        self.costToEnd = None
+        self.costToEnd = "not defined yet"
         self.totalCost = None
 
 

@@ -12,6 +12,8 @@ import string
 #space: create node at mouse position
 #node is selected + x: delete node and its connections
 #node is selected + c while hovering over other node: create connection with manhattean dist. as weight between nodes
+#node is selected + s: make selected node start node
+#node is selected + e: make selected node end node, calculates costs
 
 #CONFIGS
 START_MODE = "fromScratch"  #fromScratch, generateRandomGraph, load
@@ -24,7 +26,7 @@ async def main():
 
     #initializing font
     font = "./PixelOperator.ttf"
-    font = pg.font.Font(None, 14)
+    font = pg.font.Font(None, 16)
     font.render("www", 1, (20,20,20))
 
     #generate a random graph if wanted

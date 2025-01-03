@@ -1,6 +1,7 @@
 
 import random
 import pygame as pg
+from . import costs
 
 def interactions(Graph):
     nodeClicked = False
@@ -26,6 +27,9 @@ def interactions(Graph):
     if pg.key.get_just_pressed()[pg.K_SPACE]:
         mouse_pos = pg.mouse.get_pos()
         Graph.add_node(len(Graph.nodedict), mouse_pos)
+        #refreshing the costs
+        if Graph.endNode != None:
+            costs.calculateCostToEnd(Graph.nodedict[len(Graph.nodedict)-1], Graph.nodedict[Graph.endNode])
 
     #if x is clicked the current selected node and all of its connections get deleted
     if pg.key.get_just_pressed()[pg.K_x]:
@@ -43,8 +47,17 @@ def interactions(Graph):
                 i += 1
             #delete the node from the graph
             del Graph.nodedict[Graph.selectedNode]
-
+            print("deleted node")
+            #reset all costs if endnode does not exist
+            try:
+                x = Graph.nodedict[Graph.endNode].position[0]
+                print("found endNode at position: ", x)
+            except:
+                print("no endNode found")
+                Graph.endNode = None
+                costs.resetAllCosts(Graph)
             Graph.selectedNode = None
+        
 
     #pressing c key creates a connection between the current node and the clicked node
     if pg.key.get_just_pressed()[pg.K_c]:
@@ -61,6 +74,20 @@ def interactions(Graph):
                 Graph.add_connection(Graph.selectedNode, node.id, abs(round((Graph.nodedict[Graph.selectedNode].position[0] / 20 - node.position[0] / 20))) + abs(round((Graph.nodedict[Graph.selectedNode].position[1] / 10 - node.position[1] / 10))))
 
 
+    #pressing s key makes the selected node the start node
+    if pg.key.get_just_pressed()[pg.K_s]:
+        if Graph.selectedNode is not None:
+            Graph.startNode = Graph.selectedNode
+        if Graph.startNode == Graph.endNode:
+            Graph.startNode = None
 
+    #pressing e key makes the selected node the end node
+    if pg.key.get_just_pressed()[pg.K_e]:
+        if Graph.selectedNode is not None:
+            Graph.endNode = Graph.selectedNode
+            costs.calculateCostsToEnd(Graph)
+        if Graph.startNode == Graph.endNode:
+            Graph.endNode = None
+        
 
     

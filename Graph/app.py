@@ -11,6 +11,8 @@ class Graph():
 
         #for interactions
         self.selectedNode = None
+        self.startNode = None
+        self.endNode = None
         
 
     def add_node(self, id, position):
