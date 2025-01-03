@@ -9,7 +9,10 @@ def drawgraph(screen, font, Graph):
     #drawing the connections between the positions of the nodes they connect
     for connection in connections:
         #warning: potentially dangerous
-        pg.draw.line(screen, (round(connection.weight) * 2, 90, 70), connection.node1.position, connection.node2.position, 2)
+        if round(connection.weight) * 2.75 < 255:
+            pg.draw.line(screen, (round(connection.weight) * 2.75, 100, 60), connection.node1.position, connection.node2.position, 2)
+        else:
+            pg.draw.line(screen, (255, 90, 60), connection.node1.position, connection.node2.position, 2)
         #write weight of connection
         text = font.render(str(connection.weight), True, (255, 255, 255))
 
@@ -26,5 +29,10 @@ def drawgraph(screen, font, Graph):
 
         screen.blit(text, (node.position[0] - text.get_width() / 2, node.position[1] - text.get_height() / 2))
 
+    #if a node is selected, write all of its attributes in the top left corner
+    if Graph.selectedNode is not None:
+        selectedNode = nodes[Graph.selectedNode]
+        text = font.render(f"ID: {selectedNode.id}, Position: {selectedNode.position}", True, (255, 255, 255))
+        screen.blit(text, (70, 0))
 
     pg.display.flip()

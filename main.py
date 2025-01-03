@@ -6,11 +6,15 @@ import os
 import random
 import string
 
+#CONTROLS
+# click on node: select node
+#click anywhere else: nothing or deselect node
+#space: create node at mouse position
+#node is selected + x: delete node and its connections
+#node is selected + c while hovering over other node: create connection with manhattean dist. as weight between nodes
 
 #CONFIGS
-START_MODE = "randomGraph"  #fromScratch, generateRandomGraph, load
-
-
+START_MODE = "fromScratch"  #fromScratch, generateRandomGraph, load
 
 async def main():
     Graph = app.Graph()
