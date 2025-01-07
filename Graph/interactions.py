@@ -1,5 +1,6 @@
 
 import random
+from . import pathfinding
 import pygame as pg
 from . import costs
 
@@ -25,6 +26,7 @@ def interactions(Graph):
 
     #pressing space creates a node at the mouse position
     if pg.key.get_just_pressed()[pg.K_SPACE]:
+        #TODO: #1 fix bug where node placement is not possible, probably because of the use of ids that have already been used previously
         mouse_pos = pg.mouse.get_pos()
         Graph.add_node(len(Graph.nodedict), mouse_pos)
         #refreshing the costs
@@ -88,6 +90,12 @@ def interactions(Graph):
             costs.calculateCostsToEnd(Graph)
         if Graph.startNode == Graph.endNode:
             Graph.endNode = None
+
+    #if graph start and end node are not none then perform a star
+    if Graph.startNode is not None and Graph.endNode is not None:
+        path = pathfinding.astar(Graph)
+        #draw the path
+        
         
 
     
