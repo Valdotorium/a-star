@@ -13,6 +13,9 @@ class Graph():
         self.selectedNode = None
         self.startNode = None
         self.endNode = None
+
+        #for astar
+        self.path = []
         
 
     def add_node(self, id, position):

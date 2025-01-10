@@ -10,17 +10,30 @@ def drawgraph(screen, font, Graph):
     for connection in connections:
         #warning: potentially dangerous
         if round(connection.weight) * 2.75 < 255:
-            pg.draw.line(screen, (round(connection.weight) * 2.75, 100, 60), connection.node1.position, connection.node2.position, 2)
+            #if connection connects nodes in the path, make them orange
+            if connection.node1.id in Graph.path and connection.node2.id in Graph.path:
+
+                if connection in connection.node1.connections and connection in connection.node2.connections:
+                    pg.draw.line(screen, (255, 255, 0), connection.node1.position, connection.node2.position, 4)
+            else:
+                pg.draw.line(screen, (round(connection.weight) * 2.75, 100, 60), connection.node1.position, connection.node2.position, 2)
         else:
             pg.draw.line(screen, (255, 90, 60), connection.node1.position, connection.node2.position, 2)
         #write weight of connection
         text = font.render(str(connection.weight), True, (255, 255, 255))
 
         screen.blit(text, ((connection.node1.position[0] + connection.node2.position[0]) / 2 - text.get_width() / 2, (connection.node1.position[1] + connection.node2.position[1]) / 2 - text.get_height() / 2))
+    
+    
 
     #drawing the nodes as circles at their positions
     for node in nodes.values():
-        print(Graph.selectedNode)
+
+
+        #if the nodes id ist in Graph.path
+        if node.id in Graph.path:
+            #path node is green
+            pg.draw.circle(screen, (120, 200, 120), node.position, 14)
 
         if node.id == Graph.selectedNode:
             #selectednode is red

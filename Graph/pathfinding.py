@@ -1,4 +1,8 @@
+import time
+from . import drawgraph
+
 def astar(Graph):
+    time.sleep(1)
     # starting node
     startNode = Graph.nodedict[Graph.startNode]
     # end node
@@ -11,16 +15,27 @@ def astar(Graph):
     startNode.costFromStart = 0
     startNode.totalCost = startNode.costFromStart + startNode.costToEnd
     Graph.currentNode = startNode
+    #add start node to path
+    Graph.path.append(startNode.id)
+
     i = 0
     # perform astar search until the open set is empty or the end node is reached
     while True:
         explore_connected_nodes(Graph)
         go_to_cheapest_node(Graph)
+        time.sleep(.05)
+
         i += 1
         #if curent node is end node, quit
         if Graph.currentNode.id == Graph.endNode or i > 20:
-            print("Path found")
+            #add endnode to path
+            Graph.path.append(Graph.currentNode.id)
+
+            
+            print("Path found:", Graph.path)
             break
+
+
 
 
 
@@ -65,8 +80,15 @@ def go_to_cheapest_node(Graph):
   
         #find the node with the lowest cost
         lowestCostNode = min(Graph.openSet, key=lambda node: node.totalCost)
+
+        
+        
+
         #make the node with lowest cost current node
         Graph.currentNode = lowestCostNode
+        #add current node to path
+        Graph.path.append(currentNode.id)
+
 
 
         print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}")

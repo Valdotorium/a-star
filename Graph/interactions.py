@@ -91,10 +91,10 @@ def interactions(Graph):
         if Graph.startNode == Graph.endNode:
             Graph.endNode = None
 
-    #if graph start and end node are not none then perform a star
-    if Graph.startNode is not None and Graph.endNode is not None:
-        path = pathfinding.astar(Graph)
-        #draw the path
+        #if graph start and end node are not none then perform a star
+        if Graph.startNode is not None and Graph.endNode is not None:
+            path = pathfinding.astar(Graph)
+            #draw the path
         
         
 
