@@ -30,7 +30,7 @@ class Graph():
         self.nodedict[node2_id].connections.append(connection)
 
     def update(self, screen, font):
-        interactions.interactions(self)
+        interactions.interactions(self, screen, font)
         drawgraph.drawgraph(screen, font, self)
 
     

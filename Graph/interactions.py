@@ -4,7 +4,7 @@ from . import pathfinding
 import pygame as pg
 from . import costs
 
-def interactions(Graph):
+def interactions(Graph, screen, font):
     nodeClicked = False
     #detect if a node is being clicked
     for event in pg.event.get():
@@ -93,7 +93,7 @@ def interactions(Graph):
 
         #if graph start and end node are not none then perform a star
         if Graph.startNode is not None and Graph.endNode is not None:
-            path = pathfinding.astar(Graph)
+            pathfinding.astar(Graph, screen, font)
             #draw the path
         
         

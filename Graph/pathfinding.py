@@ -1,7 +1,7 @@
 import time
 from . import drawgraph
 
-def astar(Graph):
+def astar(Graph, screen, font):
     time.sleep(1)
     # starting node
     startNode = Graph.nodedict[Graph.startNode]
@@ -22,8 +22,8 @@ def astar(Graph):
     # perform astar search until the open set is empty or the end node is reached
     while True:
         explore_connected_nodes(Graph)
-        go_to_cheapest_node(Graph)
-        time.sleep(.05)
+        go_to_cheapest_node(Graph, screen, font)
+        time.sleep(.3)
 
         i += 1
         #if curent node is end node, quit
@@ -33,14 +33,9 @@ def astar(Graph):
 
             
             print("Path found:", Graph.path)
+
+            
             break
-
-
-
-
-
-
-
 
 def explore_connected_nodes(Graph):
     #Get the current node
@@ -67,8 +62,10 @@ def explore_connected_nodes(Graph):
 
 
 
-def go_to_cheapest_node(Graph):
+def go_to_cheapest_node(Graph, screen, font):
     try:
+        print("nodes in open set: ", [node.id for node in Graph.openSet])
+
         #Get the current node
         currentNode = Graph.currentNode
 
@@ -79,23 +76,62 @@ def go_to_cheapest_node(Graph):
         Graph.closedSet.append(currentNode)
   
         #find the node with the lowest cost
-        lowestCostNode = min(Graph.openSet, key=lambda node: node.totalCost)
-
         
-        
+        lowestCostNode = min(Graph.openSet, key=lambda x: x.totalCost)
 
-        #make the node with lowest cost current node
-        Graph.currentNode = lowestCostNode
+        #check what node from start lowestCostNode is the neighbor of
+        foundLowestCost = False
+        for connection in currentNode.connections:
+            neighbor = connection.node1 if connection.node1!= currentNode else connection.node2
+            if neighbor == lowestCostNode:
+                #make the node with lowest cost current node
+                print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}, it was neighbor of current node")
+                Graph.currentNode = lowestCostNode
+                foundLowestCost = True
+                pass
+            
+               
+        x = 1
+        if not foundLowestCost:
+            print("lowestCostNode is not neighbor of current node")
+            while len(Graph.path) > 0:
+                if not foundLowestCost:
+                    #going back until we find the lowest cost node 
+                    Node = Graph.nodedict[Graph.path[-1]]
+                    for connection in Node.connections:
+                        neighbor = connection.node1 if connection.node1!= Node else connection.node2
+                        if neighbor == lowestCostNode:
+                            foundLowestCost = True
+                            #make the node with lowest cost current node
+                            print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}, it was neighbor of: ", Node.id)
+                            Graph.currentNode = lowestCostNode
+                            break
+                    if foundLowestCost:
+                        break
+                    x += 1
+                    print(f"node {lowestCostNode.id} is not neighbor of node {Graph.path[-1]}")
+                    Graph.path.pop(-1)
+                    print(f"the path is now {Graph.path}")
+                    drawgraph.drawgraph(screen,font,Graph)
+                    time.sleep(.3)
+
+                else:
+                    break
+                    
+                
         #add current node to path
-        Graph.path.append(currentNode.id)
+        Graph.path.append(Graph.currentNode.id)
 
 
-
-        print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}")
+        drawgraph.drawgraph(screen,font,Graph)
+        
         #print the previous and current node
-        print(f"moved to node: ", Graph.currentNode.id)
+        print(f"moved to node: ", Graph.currentNode.id, "the path is: ", Graph.path)
     except:
         #if the open set is empty, there is no path to the end node
+        print("nodes in open set: ", [node.id for node in Graph.openSet])
+
+        #make a list containing all ids of the nodes in openset
         print("could not find node in openset")
 
 
