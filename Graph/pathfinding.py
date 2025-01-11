@@ -16,20 +16,20 @@ def astar(Graph, screen, font):
     startNode.totalCost = startNode.costFromStart + startNode.costToEnd
     Graph.currentNode = startNode
     #add start node to path
-    Graph.path.append(startNode.id)
+    Graph.visited.append(startNode.id)
 
     i = 0
     # perform astar search until the open set is empty or the end node is reached
     while True:
         explore_connected_nodes(Graph)
         go_to_cheapest_node(Graph, screen, font)
-        time.sleep(.3)
+        time.sleep(.25)
 
         i += 1
         #if curent node is end node, quit
-        if Graph.currentNode.id == Graph.endNode or i > 30:
+        if Graph.currentNode.id == Graph.endNode or i > 50:
             #add endnode to path
-            Graph.path.visited(Graph.currentNode.id)
+            Graph.visited.append(Graph.currentNode.id)
 
             
             print("Path found:", Graph.visited)
