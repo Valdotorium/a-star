@@ -11,10 +11,14 @@ def drawgraph(screen, font, Graph):
         #warning: potentially dangerous
         if round(connection.weight) * 2.75 < 255:
             #if connection connects nodes in the path, make them orange
-            if connection.node1.id in Graph.visited and connection.node2.id in Graph.visited:
+            if connection.node1.id in Graph.path and connection.node2.id in Graph.path:
+                pg.draw.line(screen, (255, 150, 120), connection.node1.position, connection.node2.position, 4)
+
+            #if connection connects nodes in the visited list, make them blue
+            elif connection.node1.id in Graph.visited and connection.node2.id in Graph.visited:
 
                 if connection in connection.node1.connections and connection in connection.node2.connections:
-                    pg.draw.line(screen, (255, 255, 0), connection.node1.position, connection.node2.position, 4)
+                    pg.draw.line(screen, (220, 220, 0), connection.node1.position, connection.node2.position, 4)
             else:
                 pg.draw.line(screen, (round(connection.weight) * 2.75, 100, 60), connection.node1.position, connection.node2.position, 2)
         else:

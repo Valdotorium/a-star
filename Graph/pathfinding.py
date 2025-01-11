@@ -20,27 +20,21 @@ def astar(Graph, screen, font):
 
     i = 0
     # perform astar search until the open set is empty or the end node is reached
-    while True:
+    while Graph.currentNode.id != Graph.endNode:
         explore_connected_nodes(Graph)
         go_to_cheapest_node(Graph, screen, font)
-        time.sleep(.25)
-
+        time.sleep(.15)
         i += 1
         #if curent node is end node, quit
-        if Graph.currentNode.id == Graph.endNode or i > 50:
+        if Graph.currentNode.id == Graph.endNode or i > 100:
             #add endnode to path
-            Graph.visited.append(Graph.currentNode.id)
-
-            
             print("Path found:", Graph.visited)
-            
-            
+            backtrack_path(Graph, screen, font)
             break
 
 def explore_connected_nodes(Graph):
     #Get the current node
     currentNode = Graph.currentNode
-
 
     # Get all the neighboring nodes
     for connection in currentNode.connections:
@@ -78,6 +72,9 @@ def go_to_cheapest_node(Graph, screen, font):
         #find the node with the lowest cost
         
         lowestCostNode = min(Graph.openSet, key=lambda x: x.totalCost)
+        #if end node is in open set, make it end node
+        if Graph.nodedict[Graph.endNode] in Graph.openSet:
+            lowestCostNode = Graph.nodedict[Graph.endNode]
         print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}")
 
         #move to lowestcostnode
@@ -97,5 +94,26 @@ def go_to_cheapest_node(Graph, screen, font):
         #make a list containing all ids of the nodes in openset
         print("could not find node in openset")
 
+def backtrack_path(Graph, screen, font):
+    current = Graph.nodedict[Graph.endNode]
+    visitedIndex = -1
 
-  
+    while current.id != Graph.startNode:
+        #add current node to path
+        Graph.path.append(current.id)
+        #find the previous node
+        previous = None
+
+        for connection in current.connections:
+            
+
+        
+        #if previous node is None, it means we couldn't find the previous node in the graph, so there's no path from start to end
+        #break the loop and return the path
+        if previous is None:
+            print("could not find previous node")
+            break
+        current = previous
+        #draw the graph
+        drawgraph.drawgraph(screen, font, Graph)
+        time.sleep(.15)
