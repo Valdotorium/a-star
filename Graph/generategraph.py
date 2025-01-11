@@ -4,8 +4,8 @@ import random, string
 
 def generateRandomGraph():    # generating a random graph
     Graph = app.Graph()
-    node_count = 9
-    connections_multiplier = 1.45
+    node_count = 16
+    connections_multiplier = 1
     N = 3
     for i in range(node_count):
         #TODO: make sure nodes are spaced 

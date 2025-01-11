@@ -5,6 +5,7 @@ import asyncio
 import os
 import random
 import string
+import json
 
 #CONTROLS
 # click on node: select node
@@ -16,7 +17,7 @@ import string
 #node is selected + e: make selected node end node, calculates costs
 
 #CONFIGS
-START_MODE = "fromScratch"  #fromScratch, generateRandomGraph, load
+START_MODE = "load"  #fromScratch, generateRandomGraph, load
 
 async def main():
     Graph = app.Graph()
@@ -33,7 +34,25 @@ async def main():
     if START_MODE == "randomGraph":
         Graph = generategraph.generateRandomGraph()
 
-    screen = pg.display.set_mode((800, 600))
+    #load a graph if wanted
+    elif START_MODE == "load":
+        Data = json.load(open("./roads.json"))
+        Graph = app.Graph()
+        #data has nodes with their ids and positions and connections with their nodes and weight
+        for node in Data["nodes"]:
+            Graph.add_node(node["id"], node["position"])
+        for connection in Data["connections"]:
+            try:
+                Graph.add_connection(connection["node1"], connection["node2"], connection["weight"])
+            except:
+                Graph.add_connection(connection["node1"], connection["node2"], abs(round((Graph.nodedict[connection["node1"]].position[0] / 10 - Graph.nodedict[connection["node2"]].position[0] / 10) * random.uniform(1,1))) + abs(round((Graph.nodedict[connection["node1"]].position[1] / 10 - Graph.nodedict[connection["node2"]].position[1] / 10) * random.uniform(1,1))))
+
+
+
+                   
+
+
+    screen = pg.display.set_mode((1200, 800))
     pg.display.set_caption("Pathfinding Visualization")
     # mainloop
     while True:

@@ -1,0 +1,23 @@
+{
+    "nodes": [
+        {"id": "AA", "position": [400,300]},
+        {"id": "HDH", "position": [400,400]},
+        {"id": "GD", "position": [300,300]},
+        {"id": "WN", "position": [200,300]},
+        {"id": "SHA", "position": [300,200]},
+        {"id": "HN", "position": [200,200]},
+        {"id": "UL", "position": [400,500]},
+        {"id": "RT", "position": [100,500]},
+        {"id": "ES", "position": [100,400]},
+        {"id": "GP", "position": [200,400]},
+        {"id": "NOE", "position": [500,300]},
+        {"id": "DON", "position": [500,500]},
+        {"id": "AN", "position": [500,200]},
+        {"id": "FÜ", "position": [600,100]},
+        {"id": "N", "position": [600,200]},
+        {"id": "S", "position": [100,300]}
+    ],
+    "connections": [
+    ]
+   
+}

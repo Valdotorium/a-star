@@ -16,6 +16,7 @@ class Graph():
 
         #for astar
         self.path = []
+        self.visited = []
         
 
     def add_node(self, id, position):

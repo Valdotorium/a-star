@@ -27,13 +27,13 @@ def astar(Graph, screen, font):
 
         i += 1
         #if curent node is end node, quit
-        if Graph.currentNode.id == Graph.endNode or i > 20:
+        if Graph.currentNode.id == Graph.endNode or i > 30:
             #add endnode to path
-            Graph.path.append(Graph.currentNode.id)
+            Graph.path.visited(Graph.currentNode.id)
 
             
-            print("Path found:", Graph.path)
-
+            print("Path found:", Graph.visited)
+            
             
             break
 
@@ -78,55 +78,18 @@ def go_to_cheapest_node(Graph, screen, font):
         #find the node with the lowest cost
         
         lowestCostNode = min(Graph.openSet, key=lambda x: x.totalCost)
+        print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}")
 
-        #check what node from start lowestCostNode is the neighbor of
-        foundLowestCost = False
-        for connection in currentNode.connections:
-            neighbor = connection.node1 if connection.node1!= currentNode else connection.node2
-            if neighbor == lowestCostNode:
-                #make the node with lowest cost current node
-                print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}, it was neighbor of current node")
-                Graph.currentNode = lowestCostNode
-                foundLowestCost = True
-                pass
-            
-               
-        x = 1
-        if not foundLowestCost:
-            print("lowestCostNode is not neighbor of current node")
-            while len(Graph.path) > 0:
-                if not foundLowestCost:
-                    #going back until we find the lowest cost node 
-                    Node = Graph.nodedict[Graph.path[-1]]
-                    for connection in Node.connections:
-                        neighbor = connection.node1 if connection.node1!= Node else connection.node2
-                        if neighbor == lowestCostNode:
-                            foundLowestCost = True
-                            #make the node with lowest cost current node
-                            print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}, it was neighbor of: ", Node.id)
-                            Graph.currentNode = lowestCostNode
-                            break
-                    if foundLowestCost:
-                        break
-                    x += 1
-                    print(f"node {lowestCostNode.id} is not neighbor of node {Graph.path[-1]}")
-                    Graph.path.pop(-1)
-                    print(f"the path is now {Graph.path}")
-                    drawgraph.drawgraph(screen,font,Graph)
-                    time.sleep(.3)
-
-                else:
-                    break
-                    
+        #move to lowestcostnode
+        Graph.currentNode = lowestCostNode
                 
-        #add current node to path
-        Graph.path.append(Graph.currentNode.id)
-
+        #add current node to visited,  contains all visited nodes
+        Graph.visited.append(Graph.currentNode.id)
 
         drawgraph.drawgraph(screen,font,Graph)
         
         #print the previous and current node
-        print(f"moved to node: ", Graph.currentNode.id, "the path is: ", Graph.path)
+        print(f"moved to node: ", Graph.currentNode.id, "the path is: ", Graph.visited)
     except:
         #if the open set is empty, there is no path to the end node
         print("nodes in open set: ", [node.id for node in Graph.openSet])

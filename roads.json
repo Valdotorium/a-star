@@ -1,0 +1,72 @@
+{
+    "nodes": [
+        {"id": "Aalen", "position": [600,400]},
+        {"id": "Ulm", "position": [600,550]},
+        {"id": "Augsburg", "position": [800,550]},
+        {"id": "Muenchen", "position": [1100,700]},
+        {"id": "Ingolstadt", "position": [1050,400]},
+        {"id": "Noerdlingen", "position": [800,400]},
+        {"id": "Ludwigsburg", "position": [300,300]},
+        {"id": "Stuttgart", "position": [300,400]},
+        {"id": "Heilbronn", "position": [300,240]},
+        {"id": "Feuchtwangen", "position": [600,200]},
+        {"id": "Würzburg", "position": [500,50]},
+        {"id": "Memmingen", "position": [600,670]},
+        {"id": "Erlangen", "position": [900,100]},
+        {"id": "Reutlingen", "position": [320,500]},
+        {"id": "Pforzheim", "position": [200,300]},
+        {"id": "Karlsruhe", "position": [150,250]},
+        {"id": "Mannheim", "position": [150,100]},
+        {"id": "Nuernberg", "position": [950,150]},
+        {"id": "Freiburg", "position": [150,600]},
+        {"id": "Offenburg", "position": [150,400]},
+        {"id": "Villingen", "position": [300,600]},
+        {"id": "Schorndorf", "position": [420,400]},
+        {"id": "Landsberg", "position": [800,670]},
+        {"id": "Kempten", "position": [600,750]},
+        {"id": "Kaiserslautern", "position": [60,50]}
+
+        
+    ],
+    "connections": [
+        {"node1": "Aalen", "node2": "Ulm"},
+        {"node1": "Ulm", "node2": "Memmingen"},
+        {"node1": "Memmingen", "node2": "Kempten"},
+        {"node1": "Aalen", "node2": "Feuchtwangen"},
+        {"node1": "Aalen", "node2": "Schorndorf"},
+        {"node1": "Schorndorf", "node2": "Stuttgart"},
+        {"node1": "Stuttgart", "node2": "Reutlingen"},
+        {"node1": "Stuttgart", "node2": "Ludwigsburg"},
+        {"node1": "Stuttgart", "node2": "Pforzheim"},
+        {"node1": "Pforzheim", "node2": "Karlsruhe"},
+        {"node1": "Karlsruhe", "node2": "Offenburg"},
+        {"node1": "Offenburg", "node2": "Freiburg"},
+        {"node1": "Freiburg", "node2": "Villingen"},
+        {"node1": "Karlsruhe", "node2": "Mannheim"},
+        {"node1": "Mannheim", "node2": "Kaiserslautern"},
+        {"node1": "Feuchtwangen", "node2": "Würzburg"},
+        {"node1": "Feuchtwangen", "node2": "Nuernberg"},
+        {"node1": "Feuchtwangen", "node2": "Heilbronn"},
+        {"node1": "Ludwigsburg", "node2": "Heilbronn"},
+        {"node1": "Ulm", "node2": "Reutlingen"},
+        {"node1": "Ulm", "node2": "Augsburg"},
+        {"node1": "Augsburg", "node2": "Landsberg"},
+        {"node1": "Memmingen", "node2": "Landsberg"},
+        {"node1": "Landsberg", "node2": "Muenchen"},
+        {"node1": "Augsburg", "node2": "Muenchen"},
+        {"node1": "Muenchen", "node2": "Ingolstadt"},
+        {"node1": "Ingolstadt", "node2": "Nuernberg"},
+        {"node1": "Nuernberg", "node2": "Erlangen"},
+        {"node1": "Erlangen", "node2": "Würzburg"},
+        {"node1": "Heilbronn", "node2": "Mannheim"},
+        {"node1": "Heilbronn", "node2": "Karlsruhe"},
+        {"node1": "Noerdlingen", "node2": "Aalen"},
+        {"node1": "Noerdlingen", "node2": "Augsburg"},
+        {"node1": "Augsburg", "node2": "Ingolstadt"},
+        {"node1": "Noerdlingen", "node2": "Nuernberg"}
+
+ 
+
+    ]
+   
+}
