@@ -120,6 +120,8 @@ def backtrack_path(Graph, screen, font):
                     break
             visitedIndex -= 1
         #TODO: #2 sometimes getting wrong node, need to log more nodes in visited?
+        #error occurs for example on stuttgart - landberg in rods.json
+        #mark node with a camefrom variable
         #if previous node is None, it means we couldn't find the previous node in the graph, so there's no path from start to end
         #break the loop and return the path
         if previous is None:
