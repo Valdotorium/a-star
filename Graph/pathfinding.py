@@ -76,6 +76,11 @@ def go_to_cheapest_node(Graph, screen, font):
         if Graph.nodedict[Graph.endNode] in Graph.openSet:
             lowestCostNode = Graph.nodedict[Graph.endNode]
         print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}")
+        #mark the connection travelled to the node as visited
+        for connection in lowestCostNode.connections:
+            if connection.node1 == lowestCostNode and connection.node2 == Graph.currentNode or connection.node1 == Graph.currentNode and connection.node2 == lowestCostNode:
+                connection.visited = True
+                break
 
         #move to lowestcostnode
         Graph.currentNode = lowestCostNode
@@ -96,17 +101,24 @@ def go_to_cheapest_node(Graph, screen, font):
 
 def backtrack_path(Graph, screen, font):
     current = Graph.nodedict[Graph.endNode]
-    visitedIndex = -1
+    Graph.path.append(current.id)
+    visitedIndex = -2
 
     while current.id != Graph.startNode:
         #add current node to path
-        Graph.path.append(current.id)
+        
         #find the previous node
         previous = None
+        foundPreviousNode = False
 
-        for connection in current.connections:
-            
+        while not foundPreviousNode:
 
+            for connection in current.connections:
+                if connection.node1.id == Graph.visited[visitedIndex] or connection.node2.id == Graph.visited[visitedIndex] and connection.visited:
+                    previous = connection.node1 if connection.node1!= current else connection.node2
+                    foundPreviousNode = True
+                    break
+            visitedIndex -= 1
         
         #if previous node is None, it means we couldn't find the previous node in the graph, so there's no path from start to end
         #break the loop and return the path
@@ -114,6 +126,10 @@ def backtrack_path(Graph, screen, font):
             print("could not find previous node")
             break
         current = previous
+        Graph.path.append(current.id)
         #draw the graph
         drawgraph.drawgraph(screen, font, Graph)
         time.sleep(.15)
+    #reverse the path to get the correct order
+    Graph.path.reverse()
+    print("Path from start to end: ", Graph.path)

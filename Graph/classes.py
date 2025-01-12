@@ -18,5 +18,8 @@ class Connection:
         self.node2 = node2
         self.weight = weight
 
+        #for astar
+        self.visited = True
+
 
 
