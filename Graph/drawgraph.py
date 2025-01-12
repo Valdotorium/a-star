@@ -18,7 +18,7 @@ def drawgraph(screen, font, Graph):
             elif connection.node1.id in Graph.visited and connection.node2.id in Graph.visited:
 
                 if connection in connection.node1.connections and connection in connection.node2.connections:
-                    pg.draw.line(screen, (220, 220, 0), connection.node1.position, connection.node2.position, 4)
+                    pg.draw.line(screen, (150, 150, 0), connection.node1.position, connection.node2.position, 3)
             else:
                 pg.draw.line(screen, (round(connection.weight) * 2.75, 100, 60), connection.node1.position, connection.node2.position, 2)
         else:
@@ -37,17 +37,17 @@ def drawgraph(screen, font, Graph):
         #if the nodes id ist in Graph.path
         if node.id in Graph.path:
             #path node is green
-            pg.draw.circle(screen, (120, 200, 120), node.position, 14)
+            pg.draw.circle(screen, (190,120,120), node.position, 15)
 
         if node.id == Graph.selectedNode:
             #selectednode is red
             pg.draw.circle(screen, (200, 120, 120), node.position, 12)
         elif node.id == Graph.startNode and Graph.startNode != None:
             #startnode is yellow
-            pg.draw.circle(screen, (200, 200, 100), node.position, 12)
+            pg.draw.circle(screen, (160, 160, 100), node.position, 12)
         elif node.id == Graph.endNode and Graph.endNode != None:
             #endnode is blue
-            pg.draw.circle(screen, (100, 100, 200), node.position, 12)
+            pg.draw.circle(screen, (100, 160, 160), node.position, 12)
         else:
             pg.draw.circle(screen, (120, 120, 120), node.position, 12)
         text = font.render(str(node.id), True, (255, 255, 255))
