@@ -1,0 +1,16 @@
+structure:
+
+intro
+problem: finding shortest path between two points
+show various applications
+
+show transition of map to graph
+explain nodes and connections
+
+explain astar
+-calculating costs
+-exploring nodes
+-in example graph
+
+-show pygame program
+-habts ihr noch fragen?
