@@ -4,15 +4,12 @@ class Node:
         self.position = position
         self.connections = []
 
-
         #need to be defined later
         self.costFromStart = None
         self.costToEnd = "not defined yet"
         self.totalCost = None
         self.exploredFrom = None
         self.cameFrom = None
-
-
 
 class Connection:
     def __init__(self, node1, node2, weight):

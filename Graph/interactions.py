@@ -87,15 +87,21 @@ def interactions(Graph, screen, font):
     if pg.key.get_just_pressed()[pg.K_e]:
         if Graph.selectedNode is not None:
             Graph.endNode = Graph.selectedNode
-            costs.calculateCostsToEnd(Graph)
+
         if Graph.startNode == Graph.endNode:
             Graph.endNode = None
 
         #if graph start and end node are not none then perform a star
-        if Graph.startNode is not None and Graph.endNode is not None:
-            pathfinding.astar(Graph, screen, font)
-            #draw the path
-        
-        
+        if Graph.startNode is not None and Graph.endNode is not None and Graph.startNode != Graph.endNode:
+            #reset everything
+            Graph.visited = []
+            costs.resetAllCosts(Graph)
+            Graph.path = []
 
-    
+            for node in Graph.nodes:
+                node.cameFrom = None
+                node.exploredFrom = None
+
+            costs.calculateCostsToEnd(Graph)
+            #pathfinding
+            pathfinding.astar(Graph, screen, font)

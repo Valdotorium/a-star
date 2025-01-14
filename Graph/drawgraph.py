@@ -28,11 +28,8 @@ def drawgraph(screen, font, Graph):
 
         screen.blit(text, ((connection.node1.position[0] + connection.node2.position[0]) / 2 - text.get_width() / 2, (connection.node1.position[1] + connection.node2.position[1]) / 2 - text.get_height() / 2))
     
-    
-
     #drawing the nodes as circles at their positions
     for node in nodes.values():
-
 
         #if the nodes id ist in Graph.path
         if node.id in Graph.path:

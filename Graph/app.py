@@ -2,8 +2,6 @@
 from . import classes
 from . import drawgraph
 from . import interactions
-
-
 class Graph():
     def __init__(self):
         self.nodedict = {}
@@ -33,9 +31,4 @@ class Graph():
     def update(self, screen, font):
         interactions.interactions(self, screen, font)
         drawgraph.drawgraph(screen, font, self)
-
-    
-    
-
-
         

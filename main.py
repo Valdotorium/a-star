@@ -48,16 +48,11 @@ async def main():
                 Graph.add_connection(connection["node1"], connection["node2"], abs(round((Graph.nodedict[connection["node1"]].position[0] / 10 - Graph.nodedict[connection["node2"]].position[0] / 10) * random.uniform(1,1))) + abs(round((Graph.nodedict[connection["node1"]].position[1] / 10 - Graph.nodedict[connection["node2"]].position[1] / 10) * random.uniform(1,1))))
 
 
-
-                   
-
-
     screen = pg.display.set_mode((1200, 800))
     pg.display.set_caption("Pathfinding Visualization")
     # mainloop
     while True:
         Graph.update(screen, font)
         await asyncio.sleep(0.1)
-
 
 asyncio.run(main())

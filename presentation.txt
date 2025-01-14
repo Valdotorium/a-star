@@ -16,4 +16,4 @@ explain astar
 -habts ihr noch fragen?
 
 
-rebuild algorithm! https://www.youtube.com/watch?v=v-pSdigfwM8
+rebuild algorithm! https://www.youtube.com/watch?v=v-pSdigfwM8 done
