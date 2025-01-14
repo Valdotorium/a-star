@@ -14,3 +14,6 @@ explain astar
 
 -show pygame program
 -habts ihr noch fragen?
+
+
+rebuild algorithm! https://www.youtube.com/watch?v=v-pSdigfwM8
