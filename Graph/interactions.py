@@ -98,7 +98,7 @@ def interactions(Graph, screen, font):
             costs.resetAllCosts(Graph)
             Graph.path = []
 
-            for node in Graph.nodes:
+            for node in Graph.nodedict.values():
                 node.cameFrom = None
                 node.exploredFrom = None
 
