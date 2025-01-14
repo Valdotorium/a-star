@@ -9,6 +9,8 @@ class Node:
         self.costFromStart = None
         self.costToEnd = "not defined yet"
         self.totalCost = None
+        self.exploredFrom = None
+        self.cameFrom = None
 
 
 
@@ -18,8 +20,6 @@ class Connection:
         self.node2 = node2
         self.weight = weight
 
-        #for astar
-        self.visited = True
 
 
 

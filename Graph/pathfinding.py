@@ -39,6 +39,7 @@ def explore_connected_nodes(Graph):
     # Get all the neighboring nodes
     for connection in currentNode.connections:
         neighbor = connection.node1 if connection.node1 != currentNode else connection.node2
+        
         # If the neighbor is already in the closed set, skip it
 
         if neighbor in Graph.closedSet:
@@ -49,6 +50,7 @@ def explore_connected_nodes(Graph):
 
         neighbor.costFromStart = currentNode.costFromStart + connection.weight
         neighbor.totalCost = neighbor.costFromStart + neighbor.costToEnd
+        neighbor.exploredFrom = currentNode.id
 
         #print results
         print(f"node {neighbor.id} has a cost of {neighbor.totalCost}")
@@ -77,13 +79,16 @@ def go_to_cheapest_node(Graph, screen, font):
             lowestCostNode = Graph.nodedict[Graph.endNode]
         print(f"node {lowestCostNode.id} has the lowest cost of {lowestCostNode.totalCost}")
         #mark the connection travelled to the node as visited
+        travelled = False
         for connection in lowestCostNode.connections:
             if connection.node1 == lowestCostNode and connection.node2 == Graph.currentNode or connection.node1 == Graph.currentNode and connection.node2 == lowestCostNode:
-                connection.visited = True
+                lowestCostNode.cameFrom = currentNode.id
                 break
+        if not travelled:
+            lowestCostNode.cameFrom = lowestCostNode.exploredFrom
+            #move to lowestcostnode
+            Graph.currentNode = lowestCostNode
 
-        #move to lowestcostnode
-        Graph.currentNode = lowestCostNode
                 
         #add current node to visited,  contains all visited nodes
         Graph.visited.append(Graph.currentNode.id)
@@ -105,29 +110,13 @@ def backtrack_path(Graph, screen, font):
     visitedIndex = -2
 
     while current.id != Graph.startNode:
-        #add current node to path
-        
-        #find the previous node
-        previous = None
-        foundPreviousNode = False
 
-        while not foundPreviousNode:
+        previous = current.cameFrom
 
-            for connection in current.connections:
-                if connection.node1.id == Graph.visited[visitedIndex] or connection.node2.id == Graph.visited[visitedIndex] and connection.visited:
-                    previous = connection.node1 if connection.node1!= current else connection.node2
-                    foundPreviousNode = True
-                    break
-            visitedIndex -= 1
-        #TODO: #2 sometimes getting wrong node, need to log more nodes in visited?
-        #error occurs for example on stuttgart - landberg in rods.json
-        #mark node with a camefrom variable
-        #if previous node is None, it means we couldn't find the previous node in the graph, so there's no path from start to end
-        #break the loop and return the path
         if previous is None:
             print("could not find previous node")
             break
-        current = previous
+        current = Graph.nodedict[previous]
         Graph.path.append(current.id)
         #draw the graph
         drawgraph.drawgraph(screen, font, Graph)

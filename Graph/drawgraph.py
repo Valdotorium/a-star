@@ -57,13 +57,16 @@ def drawgraph(screen, font, Graph):
     #if a node is selected, write all of its attributes in the top left corner
     if Graph.selectedNode is not None:
         selectedNode = nodes[Graph.selectedNode]
-        text = font.render(f"ID: {selectedNode.id}, Position: {selectedNode.position}, Estimated cost to End: {selectedNode.costToEnd}", True, (255, 255, 255))
-        screen.blit(text, (70, 20))
+        text = font.render(f"""ID: {selectedNode.id}, Position: {selectedNode.position}, Estimated cost to End: {selectedNode.costToEnd} """, True, (255, 255, 255))
+        screen.blit(text, (70, 740))
+        text = font.render(f""" has been explored from: {selectedNode.exploredFrom}, has been visited from: {selectedNode.cameFrom}""", True, (255, 255, 255))
+        screen.blit(text, (70, 760))
+
     if Graph.startNode == Graph.selectedNode and Graph.startNode != None:
         text = font.render("This is the start Node", True, (255, 255, 255))
-        screen.blit(text, (70, 30))
+        screen.blit(text, (70, 780))
     if Graph.endNode == Graph.selectedNode and Graph.endNode != None: 
         text = font.render("This is the end Node", True, (255, 255, 255))
-        screen.blit(text, (70, 30))
+        screen.blit(text, (70, 780))
 
     pg.display.flip()
