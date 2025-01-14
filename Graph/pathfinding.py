@@ -60,7 +60,7 @@ def go_to_cheapest_node(Graph, screen, font):
         currentNode = Graph.currentNode
         #remove current node from opens set
         Graph.openSet.remove(currentNode)
-
+        #probably error source for: Erlangen-Offenburg
         Graph.closedSet.append(currentNode)
   
         #find the node with the lowest cost
