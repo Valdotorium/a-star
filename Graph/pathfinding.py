@@ -1,7 +1,18 @@
 import time
 from . import drawgraph
+import pygame
 
-def astar(Graph, screen, font):
+def wait():
+    #wait until space is pressed
+    pygame.event.clear()
+    while True:
+        event = pygame.event.wait()
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_c:
+                break
+def astar(Graph, screen, font, AWAIT_STEPS):
     time.sleep(1)
     # starting node
     startNode = Graph.nodedict[Graph.startNode]
@@ -14,22 +25,34 @@ def astar(Graph, screen, font):
 
     startNode.costFromStart = 0
     startNode.totalCost = startNode.costFromStart + startNode.costToEnd
+    if AWAIT_STEPS:
+        wait()
     Graph.currentNode = startNode
     #add start node to path
     Graph.visited.append(startNode.id)
-
+    drawgraph.drawgraph(screen,font,Graph)
+    if AWAIT_STEPS:
+        wait()
     i = 0
     # perform astar search until the open set is empty or the end node is reached
     while Graph.currentNode.id != Graph.endNode:
         explore_connected_nodes(Graph)
+        drawgraph.drawgraph(screen,font,Graph)
+        time.sleep(.08)
+        if AWAIT_STEPS:
+            wait()
         go_to_cheapest_node(Graph, screen, font)
-        time.sleep(.1)
+        if AWAIT_STEPS:
+            wait()
+        time.sleep(.08)
         i += 1
         #if curent node is end node, quit
         if Graph.currentNode.id == Graph.endNode or i > 100:
             #add endnode to path
             print("Path found:", Graph.visited)
-            backtrack_path(Graph, screen, font)
+            if AWAIT_STEPS:
+                wait()
+            backtrack_path(Graph, screen, font,AWAIT_STEPS)
             break
 
 def explore_connected_nodes(Graph):
@@ -97,7 +120,7 @@ def go_to_cheapest_node(Graph, screen, font):
         #make a list containing all ids of the nodes in openset
         print("could not find node in openset")
 
-def backtrack_path(Graph, screen, font):
+def backtrack_path(Graph, screen, font,AWAIT_STEPS):
     current = Graph.nodedict[Graph.endNode]
     Graph.path.append(current.id)
     visitedIndex = -2
@@ -111,6 +134,8 @@ def backtrack_path(Graph, screen, font):
         Graph.path.append(current.id)
         #draw the graph
         drawgraph.drawgraph(screen, font, Graph)
+        if AWAIT_STEPS:
+            wait()
         time.sleep(.1)
     #reverse the path to get the correct order
     Graph.path.reverse()

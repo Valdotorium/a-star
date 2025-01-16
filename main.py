@@ -18,6 +18,7 @@ import math
 
 #CONFIGS
 START_MODE = "load"  #fromScratch, generateRandomGraph, load
+AWAIT_STEPS = True #make the user press c before continuing the algorithm
 
 async def main():
     Graph = app.Graph()
@@ -45,7 +46,6 @@ async def main():
             try:
                 Graph.add_connection(connection["node1"], connection["node2"], connection["weight"])
             except:
-                print(type(connection["node1"])) #is str??????????????????
                 node1pos = Graph.nodedict[connection["node1"]].position
                 node2pos = Graph.nodedict[connection["node2"]].position
                 Graph.add_connection(connection["node1"], connection["node2"], round(math.sqrt(abs(node1pos[0] / 10 - node2pos[0] / 10) ** 2 + abs(node1pos[1]/ 10 - node2pos[1] / 10) ** 2 )))
@@ -55,7 +55,7 @@ async def main():
     pg.display.set_caption("Pathfinding Visualization")
     # mainloop
     while True:
-        Graph.update(screen, font)
+        Graph.update(screen, font, AWAIT_STEPS)
         await asyncio.sleep(0.1)
 
 asyncio.run(main())

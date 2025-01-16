@@ -4,7 +4,7 @@ from . import pathfinding
 import pygame as pg
 from . import costs
 
-def interactions(Graph, screen, font):
+def interactions(Graph, screen, font, AWAIT_STEPS):
     nodeClicked = False
     #detect if a node is being clicked
     for event in pg.event.get():
@@ -104,4 +104,4 @@ def interactions(Graph, screen, font):
 
             costs.calculateCostsToEnd(Graph)
             #pathfinding
-            pathfinding.astar(Graph, screen, font)
+            pathfinding.astar(Graph, screen, font, AWAIT_STEPS)
