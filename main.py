@@ -6,7 +6,7 @@ import os
 import random
 import string
 import json
-
+import math
 #CONTROLS
 # click on node: select node
 #click anywhere else: nothing or deselect node
@@ -45,7 +45,10 @@ async def main():
             try:
                 Graph.add_connection(connection["node1"], connection["node2"], connection["weight"])
             except:
-                Graph.add_connection(connection["node1"], connection["node2"], abs(round((Graph.nodedict[connection["node1"]].position[0] / 10 - Graph.nodedict[connection["node2"]].position[0] / 10) * random.uniform(1,1))) + abs(round((Graph.nodedict[connection["node1"]].position[1] / 10 - Graph.nodedict[connection["node2"]].position[1] / 10) * random.uniform(1,1))))
+                print(type(connection["node1"])) #is str??????????????????
+                node1pos = Graph.nodedict[connection["node1"]].position
+                node2pos = Graph.nodedict[connection["node2"]].position
+                Graph.add_connection(connection["node1"], connection["node2"], round(math.sqrt(abs(node1pos[0] / 10 - node2pos[0] / 10) ** 2 + abs(node1pos[1]/ 10 - node2pos[1] / 10) ** 2 )))
 
 
     screen = pg.display.set_mode((1200, 800))
