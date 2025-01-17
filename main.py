@@ -18,7 +18,7 @@ import math
 
 #CONFIGS
 START_MODE = "load"  #fromScratch, generateRandomGraph, load
-AWAIT_STEPS = True #make the user press c before continuing the algorithm
+AWAIT_STEPS = False #make the user press c before continuing the algorithm
 
 async def main():
     Graph = app.Graph()

@@ -32,14 +32,17 @@ def drawgraph(screen, font, Graph):
     for node in nodes.values():
 
         #if the nod.ides id ist in Graph.path
-        if node in Graph.path:
+        if node.id == Graph.selectedNode:
+            #selectednode is red
+            pg.draw.circle(screen, (200, 100, 100), node.position, 12)
+        elif node in Graph.path:
             #path node is red
             pg.draw.circle(screen, (190,100,100), node.position, 15)
-        if node == Graph.currentNode:
+        elif node == Graph.currentNode:
             #current node is red
             pg.draw.circle(screen, (190, 100, 100), node.position, 15)
 
-        if node.id in Graph.visited:
+        elif node.id in Graph.visited:
             #currentnode is light green
             pg.draw.circle(screen, (100, 220, 100), node.position, 12)
 
@@ -47,9 +50,7 @@ def drawgraph(screen, font, Graph):
             #visited node is dark green
             pg.draw.circle(screen, (100, 150, 100), node.position, 12)
 
-        elif node.id == Graph.selectedNode:
-            #selectednode is red
-            pg.draw.circle(screen, (200, 100, 100), node.position, 12)
+
         elif node.id == Graph.startNode and Graph.startNode != None:
             #startnode is yellow
             pg.draw.circle(screen, (160, 160, 100), node.position, 12)

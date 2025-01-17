@@ -1,0 +1,33 @@
+{
+    "nodes": [
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []},
+        {"id": "", "position": []}
+    ],
+    "connections": [
+        {"node1": "", "node2": "", "weight": 0}
+    ]
+   
+}

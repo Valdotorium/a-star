@@ -31,6 +31,7 @@ class Graph():
         self.nodedict[node2_id].connections.append(connection)
 
     def update(self, screen, font, AWAIT_STEPS):
+        #TODO: #3 keypresses not detected in web
         interactions.interactions(self, screen, font, AWAIT_STEPS)
         drawgraph.drawgraph(screen, font, self)
         

@@ -1,0 +1,29 @@
+{
+    "nodes": [
+        {"id": "A", "position": [200,400]},
+        {"id": "B", "position": [400,400]},
+        {"id": "C", "position": [600,400]},
+        {"id": "D", "position": [500,600]},
+        {"id": "E", "position": [700,600]},
+        {"id": "F", "position": [900,400]},
+        {"id": "G", "position": [900,700]},
+        {"id": "H", "position": [1000,400]},
+        {"id": "I", "position": [1000,700]},
+        {"id": "J", "position": [800,30]},
+        {"id": "K", "position": [1100,400]}
+    ],
+    "connections": [
+        {"node1": "A", "node2": "B"},
+        {"node1": "B", "node2": "C"},
+        {"node1": "A", "node2": "D"},
+        {"node1": "D", "node2": "E"},
+        {"node1": "E", "node2": "F"},
+        {"node1": "E", "node2": "G"},
+        {"node1": "A", "node2": "J"},
+        {"node1": "J", "node2": "K"},
+        {"node1": "F", "node2": "H"},
+        {"node1": "I", "node2": "K"},
+        {"node1": "G", "node2": "I"}
+    ]
+   
+}
