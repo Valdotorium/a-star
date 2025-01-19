@@ -4,25 +4,79 @@ from . import pathfinding
 import pygame as pg
 from . import costs
 
+def button(text, screen, font, pos, clicked):
+    #function that draws a rectangle with text in it, nd returns true when it is clicked
+
+    text = font.render(text, True, (255, 255, 255))
+    pg.draw.rect(screen, (100, 100, 100), (pos[0] - 10, pos[1] - 10, text.get_width() + 20, text.get_height() + 20))
+    screen.blit(text, (pos[0] , pos[1]))
+    if clicked and pg.Rect(pos[0] - 10, pos[1] - 10, text.get_width() + 20, text.get_height() + 20).collidepoint(pg.mouse.get_pos()):
+        return True
+    else:
+        return False
+
+
+
+
 def interactions(Graph, screen, font, AWAIT_STEPS):
-    nodeClicked = False
-    #detect if a node is being clicked
+    screen.fill((20,20,20))
+
+    #detect mouse clicks
+    clicked = False
     for event in pg.event.get():
         if event.type == pg.MOUSEBUTTONDOWN:
-            mouse_pos = pg.mouse.get_pos()
-            for node in Graph.nodedict.values():
-
-                if pg.Rect(node.position[0] - 12, node.position[1] - 12, 24, 24).collidepoint(mouse_pos):
-                    Graph.selectedNode = node.id
-                    nodeClicked = True
-            #if no node is clicked, deselect the current node
-            if not nodeClicked:
-                Graph.selectedNode = None
-
+            clicked = True
         #quit program
         if event.type == pg.QUIT:
             pg.quit()
             quit()
+
+    #pressing s key makes the selected node the start node
+    setStartNodeButton = button("make start node", screen, font, (600,750), clicked)
+    if pg.key.get_just_pressed()[pg.K_s] or setStartNodeButton:
+        if Graph.selectedNode is not None:
+            Graph.startNode = Graph.selectedNode
+        if Graph.startNode == Graph.endNode:
+            Graph.startNode = None
+
+    #pressing e key makes the selected node the end node
+    setEndNodeButton = button("make end node", screen, font, (800,750), clicked)
+    if pg.key.get_just_pressed()[pg.K_e] or setEndNodeButton:
+        if Graph.selectedNode is not None:
+            Graph.endNode = Graph.selectedNode
+
+        if Graph.startNode == Graph.endNode:
+            Graph.endNode = None
+
+        #if graph start and end node are not none then perform a star
+        if Graph.startNode is not None and Graph.endNode is not None and Graph.startNode != Graph.endNode:
+            #reset everything
+            Graph.visited = []
+            costs.resetAllCosts(Graph)
+            Graph.path = []
+
+            for node in Graph.nodedict.values():
+                node.cameFrom = None
+                node.exploredFrom = None
+
+            costs.calculateCostsToEnd(Graph)
+            #pathfinding
+            pathfinding.astar(Graph, screen, font, AWAIT_STEPS)
+        
+
+    nodeClicked = False
+    #detect if a node is being clicked
+    if clicked:
+        mouse_pos = pg.mouse.get_pos()
+        for node in Graph.nodedict.values():
+
+            if pg.Rect(node.position[0] - 12, node.position[1] - 12, 24, 24).collidepoint(mouse_pos):
+                Graph.selectedNode = node.id
+                nodeClicked = True
+        #if no node is clicked, deselect the current node
+        if not nodeClicked:
+            Graph.selectedNode = None
+
 
     #pressing space creates a node at the mouse position
     if pg.key.get_just_pressed()[pg.K_SPACE]:
@@ -76,32 +130,3 @@ def interactions(Graph, screen, font, AWAIT_STEPS):
                 Graph.add_connection(Graph.selectedNode, node.id, abs(round((Graph.nodedict[Graph.selectedNode].position[0] / 20 - node.position[0] / 20))) + abs(round((Graph.nodedict[Graph.selectedNode].position[1] / 10 - node.position[1] / 10))))
 
 
-    #pressing s key makes the selected node the start node
-    if pg.key.get_just_pressed()[pg.K_s]:
-        if Graph.selectedNode is not None:
-            Graph.startNode = Graph.selectedNode
-        if Graph.startNode == Graph.endNode:
-            Graph.startNode = None
-
-    #pressing e key makes the selected node the end node
-    if pg.key.get_just_pressed()[pg.K_e]:
-        if Graph.selectedNode is not None:
-            Graph.endNode = Graph.selectedNode
-
-        if Graph.startNode == Graph.endNode:
-            Graph.endNode = None
-
-        #if graph start and end node are not none then perform a star
-        if Graph.startNode is not None and Graph.endNode is not None and Graph.startNode != Graph.endNode:
-            #reset everything
-            Graph.visited = []
-            costs.resetAllCosts(Graph)
-            Graph.path = []
-
-            for node in Graph.nodedict.values():
-                node.cameFrom = None
-                node.exploredFrom = None
-
-            costs.calculateCostsToEnd(Graph)
-            #pathfinding
-            pathfinding.astar(Graph, screen, font, AWAIT_STEPS)

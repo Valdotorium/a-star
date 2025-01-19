@@ -1,7 +1,7 @@
 import pygame as pg
 
 def drawgraph(screen, font, Graph):
-    screen.fill((20,20,20))
+
 
     connections = Graph.connections
     nodes = Graph.nodedict
@@ -40,7 +40,7 @@ def drawgraph(screen, font, Graph):
             pg.draw.circle(screen, (190,100,100), node.position, 15)
         elif node == Graph.currentNode:
             #current node is red
-            pg.draw.circle(screen, (190, 100, 100), node.position, 15)
+            pg.draw.circle(screen, (220, 150, 100), node.position, 15)
 
         elif node.id in Graph.visited:
             #currentnode is light green

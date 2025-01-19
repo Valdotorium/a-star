@@ -18,7 +18,7 @@ import math
 
 #CONFIGS
 START_MODE = "load"  #fromScratch, generateRandomGraph, load
-AWAIT_STEPS = False #make the user press c before continuing the algorithm
+AWAIT_STEPS = True #make the user press c before continuing the algorithm
 
 async def main():
     Graph = app.Graph()
@@ -37,7 +37,7 @@ async def main():
 
     #load a graph if wanted
     elif START_MODE == "load":
-        Data = json.load(open("./roads.json"))
+        Data = json.load(open("./autobahn.json"))
         Graph = app.Graph()
         #data has nodes with their ids and positions and connections with their nodes and weight
         for node in Data["nodes"]:
@@ -48,7 +48,7 @@ async def main():
             except:
                 node1pos = Graph.nodedict[connection["node1"]].position
                 node2pos = Graph.nodedict[connection["node2"]].position
-                Graph.add_connection(connection["node1"], connection["node2"], round(math.sqrt(abs(node1pos[0] / 10 - node2pos[0] / 10) ** 2 + abs(node1pos[1]/ 10 - node2pos[1] / 10) ** 2 )))
+                Graph.add_connection(connection["node1"], connection["node2"], round(math.sqrt(abs(node1pos[0] / 4.35 - node2pos[0] / 4.35) ** 2 + abs(node1pos[1]/ 3.75 - node2pos[1] / 3.75) ** 2 )))
 
 
     screen = pg.display.set_mode((1200, 800))

@@ -2,16 +2,35 @@ import time
 from . import drawgraph
 import pygame
 
-def wait():
+def wait(Graph, screen, font):
     #wait until space is pressed
     pygame.event.clear()
     while True:
+        clicked = False
         event = pygame.event.wait()
         if event.type == pygame.QUIT:
             pygame.quit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            clicked = True
+            print("eee")
+        #continue if c is pressed
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
                 break
+            
+
+        #makes nodes selectable
+        if clicked:
+            Graph.selectedNode = None
+            for node in Graph.nodedict.values():
+                if pygame.Rect(node.position[0] - 12, node.position[1] - 12, 24, 24).collidepoint(pygame.mouse.get_pos()):
+                    Graph.selectedNode = node.id
+                    screen.fill((20,20,20))
+                    drawgraph.drawgraph(screen, font, Graph)
+                    break
+        #continue if no node has been clicked
+        if clicked and Graph.selectedNode == None:
+            break
 def astar(Graph, screen, font, AWAIT_STEPS):
     time.sleep(1)
     # starting node
@@ -26,24 +45,26 @@ def astar(Graph, screen, font, AWAIT_STEPS):
     startNode.costFromStart = 0
     startNode.totalCost = startNode.costFromStart + startNode.costToEnd
     if AWAIT_STEPS:
-        wait()
+        wait(Graph, screen, font)
     Graph.currentNode = startNode
     #add start node to path
     Graph.visited.append(startNode.id)
+    screen.fill((20,20,20))
     drawgraph.drawgraph(screen,font,Graph)
     if AWAIT_STEPS:
-        wait()
+        wait(Graph, screen, font)
     i = 0
     # perform astar search until the open set is empty or the end node is reached
     while Graph.currentNode.id != Graph.endNode:
         explore_connected_nodes(Graph)
+        screen.fill((20,20,20))
         drawgraph.drawgraph(screen,font,Graph)
         time.sleep(.08)
         if AWAIT_STEPS:
-            wait()
+            wait(Graph, screen, font)
         go_to_cheapest_node(Graph, screen, font)
         if AWAIT_STEPS:
-            wait()
+            wait(Graph, screen, font)
         time.sleep(.08)
         i += 1
         #if curent node is end node, quit
@@ -51,7 +72,7 @@ def astar(Graph, screen, font, AWAIT_STEPS):
             #add endnode to path
             print("Path found:", Graph.visited)
             if AWAIT_STEPS:
-                wait()
+                wait(Graph, screen, font)
             backtrack_path(Graph, screen, font,AWAIT_STEPS)
             break
 
@@ -108,7 +129,7 @@ def go_to_cheapest_node(Graph, screen, font):
 
         #add current node to visited,  contains all visited nodes
         Graph.visited.append(Graph.currentNode.id)
-
+        screen.fill((20,20,20))
         drawgraph.drawgraph(screen,font,Graph)
         
         #print the previous and current node
@@ -133,9 +154,10 @@ def backtrack_path(Graph, screen, font,AWAIT_STEPS):
         current = Graph.nodedict[previous]
         Graph.path.append(current.id)
         #draw the graph
+        screen.fill((20,20,20))
         drawgraph.drawgraph(screen, font, Graph)
         if AWAIT_STEPS:
-            wait()
+            wait(Graph, screen, font)
         time.sleep(.1)
     #reverse the path to get the correct order
     Graph.path.reverse()
