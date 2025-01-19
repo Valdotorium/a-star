@@ -48,7 +48,7 @@ async def main():
             except:
                 node1pos = Graph.nodedict[connection["node1"]].position
                 node2pos = Graph.nodedict[connection["node2"]].position
-                Graph.add_connection(connection["node1"], connection["node2"], round(math.sqrt(abs(node1pos[0] / 10 - node2pos[0] / 10) ** 2 + abs(node1pos[1]/ 10 - node2pos[1] / 10) ** 2 )))
+                Graph.add_connection(connection["node1"], connection["node2"], round(math.sqrt(abs(node1pos[0] / 4.3 - node2pos[0] / 4.3) ** 2 + abs(node1pos[1]/ 3.7 - node2pos[1] / 3.7) ** 2 )))
 
 
     screen = pg.display.set_mode((1200, 800))
