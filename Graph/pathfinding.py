@@ -80,7 +80,9 @@ def explore_connected_nodes(Graph):
     # Get all the neighboring nodes
     for connection in currentNode.connections:
         neighbor = connection.node1 if connection.node1 != currentNode else connection.node2
-        
+        # If the neighbor is already in the closed set, skip it
+        if neighbor in Graph.closedSet:
+            continue
         #add neighbor to open set
         Graph.openSet.append(neighbor)
 

@@ -37,7 +37,7 @@ async def main():
 
     #load a graph if wanted
     elif START_MODE == "load":
-        Data = json.load(open("./autobahn.json"))
+        Data = json.load(open("./autobahn-stau.json"))
         Graph = app.Graph()
         #data has nodes with their ids and positions and connections with their nodes and weight
         for node in Data["nodes"]:
