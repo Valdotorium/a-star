@@ -17,7 +17,7 @@ import math
 #node is selected + e: make selected node end node, calculates costs
 
 #CONFIGS
-START_MODE = "fromScratch"  #fromScratch, generateRandomGraph, load
+START_MODE = "load"  #fromScratch, generateRandomGraph, load
 AWAIT_STEPS = False #make the user press c before continuing the algorithm
 
 async def main():
