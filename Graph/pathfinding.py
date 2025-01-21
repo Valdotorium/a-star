@@ -70,6 +70,10 @@ def astar(Graph, screen, font, AWAIT_STEPS):
             backtrack_path(Graph, screen, font,AWAIT_STEPS)
             break
 
+        if Graph.openSet == []:
+            print("No path found!")
+            break
+
 def explore_connected_nodes(Graph):
     #Get the current node
     currentNode = Graph.currentNode
@@ -78,9 +82,19 @@ def explore_connected_nodes(Graph):
         neighbor = connection.node1 if connection.node1 != currentNode else connection.node2
         # If the neighbor is already in the closed set, skip it
         if neighbor in Graph.closedSet:
-            continue
+            #if neighbor has different cost, readd to openset
+            costFromStart = currentNode.costFromStart + connection.weight
+            totalCost = neighbor.costFromStart + neighbor.costToEnd
+
+            if totalCost > neighbor.totalCost:
+                neighbor.costFromStart = costFromStart
+                neighbor.totalCost = totalCost
+                neighbor.exploredFrom = currentNode.id
+            else:
+                continue
         #add neighbor to open set
-        Graph.openSet.append(neighbor)
+        if neighbor not in Graph.openSet:
+            Graph.openSet.append(neighbor)
 
         #set the neighbors attributes
         neighbor.costFromStart = currentNode.costFromStart + connection.weight

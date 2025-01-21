@@ -17,7 +17,7 @@ import math
 #node is selected + e: make selected node end node, calculates costs
 
 #CONFIGS
-START_MODE = ""  #fromScratch, generateRandomGraph, load
+START_MODE = "fromScratch"  #fromScratch, generateRandomGraph, load
 AWAIT_STEPS = False #make the user press c before continuing the algorithm
 
 async def main():
@@ -28,7 +28,7 @@ async def main():
 
     #initializing font
     font = "./PixelOperator.ttf"
-    font = pg.font.Font(None, 18)
+    font = pg.font.Font(None, 20)
 
     #generate a random graph if wanted
     if START_MODE == "randomGraph":

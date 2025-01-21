@@ -31,8 +31,6 @@ def drawgraph(screen, font, Graph):
     #drawing the nodes as circles at their positions
     for node in nodes.values():
 
-        #if the nod.ides id ist in Graph.path
-
         if node.id == Graph.selectedNode:
             #selectednode is red
             pg.draw.circle(screen, (200, 100, 100), node.position, 12)
