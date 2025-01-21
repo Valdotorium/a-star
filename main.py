@@ -17,8 +17,8 @@ import math
 #node is selected + e: make selected node end node, calculates costs
 
 #CONFIGS
-START_MODE = "load"  #fromScratch, generateRandomGraph, load
-AWAIT_STEPS = True #make the user press c before continuing the algorithm
+START_MODE = ""  #fromScratch, generateRandomGraph, load
+AWAIT_STEPS = False #make the user press c before continuing the algorithm
 
 async def main():
     Graph = app.Graph()
@@ -28,8 +28,7 @@ async def main():
 
     #initializing font
     font = "./PixelOperator.ttf"
-    font = pg.font.Font(None, 16)
-    font.render("www", 1, (20,20,20))
+    font = pg.font.Font(None, 18)
 
     #generate a random graph if wanted
     if START_MODE == "randomGraph":
@@ -48,10 +47,11 @@ async def main():
             except:
                 node1pos = Graph.nodedict[connection["node1"]].position
                 node2pos = Graph.nodedict[connection["node2"]].position
-                Graph.add_connection(connection["node1"], connection["node2"], round(math.sqrt(abs(node1pos[0] / 4.3 - node2pos[0] / 4.3) ** 2 + abs(node1pos[1]/ 3.7 - node2pos[1] / 3.7) ** 2 )))
+                Graph.add_connection(connection["node1"], connection["node2"], round(math.sqrt(abs(node1pos[0] / 4 - node2pos[0] / 4) ** 2 + abs(node1pos[1]/ 4 - node2pos[1] / 4) ** 2 )))
 
 
     screen = pg.display.set_mode((1200, 800))
+    
     pg.display.set_caption("Pathfinding Visualization")
     # mainloop
     while True:

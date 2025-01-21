@@ -12,14 +12,12 @@ def wait(Graph, screen, font):
             pygame.quit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             clicked = True
-            print("eee")
         #continue if c is pressed
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
                 break
-            
-
-        #makes nodes selectable
+        
+        #makes nodes selectable during pathfinding
         if clicked:
             Graph.selectedNode = None
             for node in Graph.nodedict.values():
@@ -28,9 +26,7 @@ def wait(Graph, screen, font):
                     screen.fill((20,20,20))
                     drawgraph.drawgraph(screen, font, Graph)
                     break
-        #continue if no node has been clicked
-        if clicked and Graph.selectedNode == None:
-            break
+
 def astar(Graph, screen, font, AWAIT_STEPS):
     time.sleep(1)
     # starting node
